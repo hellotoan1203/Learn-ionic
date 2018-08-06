@@ -1,0 +1,26 @@
+page-chat-area {
+	ion-list{
+		.userName{
+			font-weight: bold;
+			font-size: 15px;
+			margin-right: 4px;
+		}
+		.message{
+			font-size: 12px;
+		}
+		.date{
+			font-style: italic;
+			font-size: 8px;
+			margin-top: 3px;
+		}
+	}
+
+	ion-footer {
+    	background: white;
+    	ion-icon {
+      		padding: 8px;
+      		font-size: 20px;
+      		color: green;
+    	}
+  }
+}
