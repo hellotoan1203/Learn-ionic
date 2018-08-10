@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Socket } from 'ng-socket-io';
-import { Observable } from 'rxjs/Observable'
-import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs-compat'
+import { AngularFireDatabase} from 'angularfire2/database';
 /*
   Generated class for the ProcessDataProvider provider.
 
@@ -12,18 +11,17 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ProcessDataProvider {
 
-  constructor(private socket: Socket) {
+  constructor(private db: AngularFireDatabase) {
     
   }
    getData(message: string) {
-        return this.socket
-            .fromEvent<any>(message)
-            .map(data => data);
-    }
+
+        return this.db.list(message).valueChanges();
+      }
 
     sendData(data: any, message: string) {
-        this.socket
-            .emit(message, data);
+       const itemsRef = this.db.list(message);
+       itemsRef.push(data);
     }
 
 }

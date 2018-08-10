@@ -4,14 +4,22 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { FormsModule } from '@angular/forms';
-import { SocketIoModule, SocketIoConfig, Socket} from 'ng-socket-io';
+import { AngularFireModule } from 'angularfire2';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ChatAreaPage } from '../pages/chat-area/chat-area';
 import { ProcessDataProvider } from '../providers/process-data/process-data';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const firebaseConfig =  {
+    apiKey: "AIzaSyBL4V44ua7rR_nCEI6ANu5hrIBTtIqCs5M",
+    authDomain: "chatfunny-a645d.firebaseapp.com",
+    databaseURL: "https://chatfunny-a645d.firebaseio.com",
+    projectId: "chatfunny-a645d",
+    storageBucket: "chatfunny-a645d.appspot.com",
+    messagingSenderId: "541736717214"
+  }
 @NgModule({
   declarations: [
     MyApp,
@@ -21,7 +29,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
   imports: [
     BrowserModule,
     FormsModule,
-    SocketIoModule.forRoot(config),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

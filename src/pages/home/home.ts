@@ -13,7 +13,7 @@ export class HomePage {
   	
   }
   sendUser(un: string){
-  	this.provider.sendData(un,"new-user");
+  	this.provider.sendData(un,"user");
   	this.navCtrl.setRoot(ChatAreaPage,{userName: un});
   }
   

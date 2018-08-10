@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs-compat'
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {ProcessDataProvider} from '../../providers/process-data/process-data';
 import {} from '@angular/forms';
@@ -19,7 +20,7 @@ import {} from '@angular/forms';
 export class ChatAreaPage {
   userName: string;
   message: string;
-  listMessage: any;
+  listMessage: Observable<any[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams, public provider: ProcessDataProvider) {
   		this.userName=this.navParams.get("userName");
       this.getMessage();
@@ -30,12 +31,13 @@ export class ChatAreaPage {
   }
   sendMessage(msg: string){
   	this.provider.sendData(
-      {message: msg, userName: this.userName, date: new Date()},
-      "send_message");
+      date = new Date();
+      {message: msg, userName: this.userName, date: date},
+      "/message");
     this.message="";
   }
   getMessage(){
-  	this.provider.getData("get_message").subscribe(
+  	this.provider.getData("/message").subscribe(
   		data=>{
         this.listMessage=data;
   		})

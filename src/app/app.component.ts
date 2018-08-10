@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
-
+import { Observable } from 'rxjs/Observable'
 import { HomePage} from '../pages/home/home';
 
 import { ChatAreaPage} from '../pages/chat-area/chat-area';
@@ -10,11 +10,12 @@ import { ProcessDataProvider} from '../providers/process-data/process-data';
 })
 export class MyApp {
   rootPage:any = HomePage;
-  listUser: any;
+  listUser: Observable<any[]>;
   constructor(platform: Platform, private provider: ProcessDataProvider) {
     platform.ready().then(() => {
-      this.provider.getData("get_list_user").subscribe(
+      this.provider.getData("user").subscribe(
           data=>{
+            console.log(data);
             this.listUser=data;
           }
         );
