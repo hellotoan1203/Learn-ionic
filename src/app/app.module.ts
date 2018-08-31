@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { ChatAreaPage } from '../pages/chat-area/chat-area';
 import { ProcessDataProvider } from '../providers/process-data/process-data';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { RoomPage } from '../pages/room/room';
 
 const firebaseConfig =  {
     apiKey: "AIzaSyBL4V44ua7rR_nCEI6ANu5hrIBTtIqCs5M",
@@ -24,7 +25,8 @@ const firebaseConfig =  {
   declarations: [
     MyApp,
     HomePage,
-    ChatAreaPage
+    ChatAreaPage,
+    RoomPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ const firebaseConfig =  {
   entryComponents: [
     MyApp,
     HomePage,
-    ChatAreaPage
+    ChatAreaPage,
+    RoomPage
   ],
   providers: [
     StatusBar,

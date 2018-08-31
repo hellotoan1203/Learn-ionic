@@ -1,15 +1,8 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs-compat'
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {ProcessDataProvider} from '../../providers/process-data/process-data';
 import {} from '@angular/forms';
 
-/**
- * Generated class for the ChatAreaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -18,11 +11,16 @@ import {} from '@angular/forms';
   providers: [ProcessDataProvider]
 })
 export class ChatAreaPage {
-  userName: string;
+  key: string;
+  roomName: string;
+  userName: any;
   message: string;
-  listMessage: Observable<any[]>;
+  listMessage: {}[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public provider: ProcessDataProvider) {
-  		this.userName=this.navParams.get("userName");
+  		this.key =this.navParams.get("keyRoom");
+      this.roomName=this.navParams.get("roomName");
+      console.log(this.key)
+      this.userName =this.navParams.get("userName");
       this.getMessage();
   }
 
@@ -31,13 +29,15 @@ export class ChatAreaPage {
   }
   sendMessage(msg: string){
   	this.provider.sendData(
-      date = new Date();
-      {message: msg, userName: this.userName, date: date},
-      "/message");
+      {
+        message: msg, 
+        userName: this.userName
+      },
+      "/rooms/"+this.key+"/message");
     this.message="";
   }
   getMessage(){
-  	this.provider.getData("/message").subscribe(
+  	this.provider.getData("/rooms/"+this.key+"/message").subscribe(
   		data=>{
         this.listMessage=data;
   		})

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs-compat'
+import { Observable } from 'rxjs-compat';
+import { map } from 'rxjs/operators';
 import { AngularFireDatabase} from 'angularfire2/database';
 /*
   Generated class for the ProcessDataProvider provider.
@@ -14,14 +15,18 @@ export class ProcessDataProvider {
   constructor(private db: AngularFireDatabase) {
     
   }
-   getData(message: string) {
-
-        return this.db.list(message).valueChanges();
+   getData(path: string) {
+        return this.db.list(path).snapshotChanges().pipe(
+        map(changes => 
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
       }
 
-    sendData(data: any, message: string) {
-       const itemsRef = this.db.list(message);
+    sendData(data: any, path: string) {
+       const itemsRef = this.db.list(path);
        itemsRef.push(data);
     }
+
 
 }
